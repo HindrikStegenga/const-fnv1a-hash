@@ -1,6 +1,6 @@
 [package]
 name = "const-fnv1a-hash"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2018"
 description = "A #![no_std] crate for performing FNV1A-16/32/64 hasing on Rust stable at compile time."
 license = "MIT"

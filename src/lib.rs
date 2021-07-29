@@ -6,7 +6,7 @@ const FNV_OFFSET_BASIS_64: u64 = 0xcbf29ce484222325;
 const FNV_PRIME_32: u32 = 0x01000193;
 const FNV_PRIME_64: u64 = 0x00000100000001B3;
 
-/// Computes 32-bits fnv1a hash of the given slice, or up-to limit if provided.
+/// Computes 64-bits fnv1a hash of the given slice, or up-to limit if provided.
 /// If limit is zero or exceeds slice length, slice length is used instead.
 pub const fn fnv1a_hash_64(bytes: &[u8], limit: Option<usize>) -> u64 {
     let mut hash = FNV_OFFSET_BASIS_64;
@@ -56,7 +56,8 @@ pub const fn fnv1a_hash_32(bytes: &[u8], limit: Option<usize>) -> u32 {
     hash
 }
 
-/// Computes 32-bits fnv1a hash and xors higher and lower 16-bits.
+/// Computes 32-bits fnv1a hash and XORs higher and lower 16-bits.
+/// This results in a 16-bits hash value.
 /// Up to limit if provided, otherwise slice length.
 /// If limit is zero or exceeds slice length, slice length is used instead.
 #[inline(always)]
@@ -79,7 +80,7 @@ pub const fn fnv1a_hash_str_32(input: &str) -> u32 {
     fnv1a_hash_32(input.as_bytes(), None)
 }
 
-/// Computes 16-bit fnv1a hash from a str.
+/// Computes 16-bit fnv1a hash from a str using XOR folding.
 #[inline(always)]
 pub const fn fnv1a_hash_str_16_xor(input: &str) -> u16 {
     fnv1a_hash_16_xor(input.as_bytes(), None)
